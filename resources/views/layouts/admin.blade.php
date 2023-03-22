@@ -52,10 +52,11 @@
                                     <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.dashboard' ? 'bg-secondary' : '' }}" href="{{route('admin.dashboard')}}">
                                         <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> Dashboard
                                     </a>
+                                    <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.projects.index' ? 'bg-secondary' : '' }}" href="{{route('admin.projects.index')}}">
+                                        <i class="fa-solid fa-clipboard fa-lg fa-fw"></i> Projects
+                                    </a>
                                 </li>
                             </ul>
-
-
                         </div>
                     </nav>
 
