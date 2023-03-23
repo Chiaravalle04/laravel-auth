@@ -26,7 +26,9 @@ class UpdateProjectRequest extends FormRequest
         return [
             'title' => 'required|max:120',
             'description' => 'required',
-            'tags' => 'nullable|string|max:50'
+            'tags' => 'nullable|string|max:50',
+            'image' => 'nullable|image|max:2048',
+            'delete_image' => 'nullable'
         ];
     }
 }

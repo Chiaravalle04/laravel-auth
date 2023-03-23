@@ -15,7 +15,7 @@
                     @endif
                 </div>
 
-                <form class="p-4" action="{{ route('admin.projects.update', $project->id) }}" method="post">
+                <form class="p-4" action="{{ route('admin.projects.update', $project->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     @method('PUT')
@@ -52,6 +52,31 @@
                             value="{{ old('tags', $project->tags) }}"
                             placeholder="Inserisci il framework..."
                         >
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">
+                            Immagine progetto
+                        </label>
+
+                        @if ($project->image)
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="delete_image" id="delete_image">
+                                <label class="form-check-label" for="delete_image">
+                                    Cancella immagine in evidenza
+                                </label>
+                            </div>
+
+                            <div class="mb-2">
+                                <img src="{{ asset('storage/' . $project->image) }}" style="width:300px;" alt="{{ $project->title }}">
+                            </div>
+                        @endif
+
+                        <input
+                            type="file"
+                            class="form-control"
+                            id="image"
+                            name="image"
+                            accept="image/*">
                     </div>
 
                     <button class="btn btn-warning" type="submit">Modifica</button>

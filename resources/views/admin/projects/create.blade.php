@@ -15,7 +15,7 @@
                     @endif
                 </div>
 
-                <form class="p-4" action="{{ route('admin.projects.store') }}" method="post">
+                <form class="p-4" action="{{ route('admin.projects.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-3">
@@ -51,6 +51,17 @@
                             value="{{ old('tags') }}"
                             placeholder="Inserisci il framework..."
                         >
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">
+                            Immagine progetto
+                        </label>
+                        <input
+                            type="file"
+                            class="form-control"
+                            id="image"
+                            name="image"
+                            accept="image/*">
                     </div>
 
                     <button class="btn btn-primary" type="submit">Aggiungi</button>

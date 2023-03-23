@@ -14,6 +14,12 @@
                     </div>
                     @endif
 
+                    @if ($project->image)
+
+                        <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}" style="width:300px; margin-bottom:15px">
+
+                    @endif
+                    
                     <h2>{{ $project->title }}</h2>
 
                     <p>{{ $project->description }}</p>

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 
 // Helpers
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -42,6 +43,14 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $data = $request->validated();
+
+        if (array_key_exists('image', $data)) {
+
+            $imgPath = Storage::put('projects', $data['image']);
+
+            $data['image'] = $imgPath;
+
+        }
 
         $data['slug'] = Str::slug($data['title']);
 
@@ -83,11 +92,35 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
 
+        if (array_key_exists('delete_image', $data)) {
+
+            if ($project->image) {
+
+                Storage::delete($project->image);
+
+                $project->image = null;
+
+                $project->save();
+            }
+
+        } else if (array_key_exists('image', $data)) {
+
+            $imgPath = Storage::put('projects', $data['image']);
+            
+            $data['image'] = $imgPath;
+
+            if ($project->image) {
+
+                Storage::delete($project->image);
+
+            }
+        }
+
         $data['slug'] = Str::slug($data['title']);
 
         $project->update($data);
 
-        return redirect()->route('admin.projects.show', $project->id)->with('success', 'Progetto aggiunto con successo!');
+        return redirect()->route('admin.projects.show', $project->id)->with('success', 'Progetto modificato con successo!');
     }
 
     /**
