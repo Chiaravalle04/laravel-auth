@@ -10,6 +10,10 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
+// Mails
+use App\Mail\Newproject;
+use Illuminate\Support\Facades\Mail;
+
 class ProjectController extends Controller
 {
     /**
@@ -55,6 +59,8 @@ class ProjectController extends Controller
         $data['slug'] = Str::slug($data['title']);
 
         $newProject = Project::create($data);
+
+        Mail::to('info@boolpress.it')->send(new Newproject($newProject));
 
         return redirect()->route('admin.projects.show', $newProject->id)->with('success', 'Progetto aggiunto con successo!');
     }
